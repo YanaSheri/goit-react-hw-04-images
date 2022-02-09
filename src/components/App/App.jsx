@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
 // import "../styles.css";
-// import './App/App.module.css';
+import s from  './App.module.css';
 
 
 
@@ -82,7 +82,7 @@ class App extends Component {
 
 
   render() {
-    const { hits, newImput, status, showModal, largeImageURL } = this.state;
+    const { hits, status, showModal, largeImageURL } = this.state;
     return ( <>
       <Searchbar changeInput={ this.changeInput }/>
       {status === 'idle' ? <div>Введите запрос ... </div> : null}
@@ -94,8 +94,8 @@ class App extends Component {
         <Button clickBtnLoadMore={this.clickBtnLoadMore} />
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <a onClick={this.toggleModal}>
-              <img src={largeImageURL} alt="" />
+            <a href="/" onClick={this.toggleModal}>
+              <img src={largeImageURL} className={s["modalImg"]} alt="" />
             </a>
           </Modal>
         )}
