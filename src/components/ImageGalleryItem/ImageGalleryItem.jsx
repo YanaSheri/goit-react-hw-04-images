@@ -8,13 +8,9 @@ const ImageGalleryItem = ({ images, modalOpen }) => {
       {images.map(({ id, webformatURL, largeImageURL }) => {
         return (
           <li key={id} className={s["galleryItem"]}>
-            <a href="/"
-              onClick={() => {
+              <img src={webformatURL} className={s["galleryItemImg"]} onClick={() => {
                 modalOpen(largeImageURL);
-              }}
-            >
-              <img src={webformatURL} className={s["galleryItemImg"]} alt="" />
-            </a>
+              }} alt="" />
           </li>
         );
       })}

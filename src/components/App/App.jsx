@@ -94,9 +94,7 @@ class App extends Component {
         <Button clickBtnLoadMore={this.clickBtnLoadMore} />
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <a href="/" onClick={this.toggleModal}>
-              <img src={largeImageURL} className={s["modalImg"]} alt="" />
-            </a>
+              <img src={largeImageURL} className={s["modalImg"]} onClick={this.toggleModal} alt="" />
           </Modal>
         )}
       </>
