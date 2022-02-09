@@ -1,10 +1,14 @@
 import { Component } from "react";
-import Modal from "./Modal/Modal";
-import Searchbar from "./Searchbar/Searchbar";
-import getImages from '../MainFetch/MainFetch';
-import Button from "./Button/Button";
-import ImageGallery from "./ImageGallery/ImageGallery";
-import Loader from "./Loader/Loader";
+import Modal from "../Modal/Modal";
+import Searchbar from "../Searchbar/Searchbar";
+import getImages from '../../MainFetch/MainFetch';
+import Button from "../Button/Button";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import Loader from "../Loader/Loader";
+// import "../styles.css";
+// import './App/App.module.css';
+
+
 
 const Status = {
   IDLE: 'idle',

@@ -1,15 +1,19 @@
+import s from './ImageGalleryItem.module.css';
+
+
+
 const ImageGalleryItem = ({ images, modalOpen }) => {
   return (
     <>
       {images.map(({ id, webformatURL, largeImageURL }) => {
         return (
-          <li key={id} className="gallery-item">
+          <li key={id} className={s["galleryItem"]}>
             <a
               onClick={() => {
                 modalOpen(largeImageURL);
               }}
             >
-              <img src={webformatURL} alt="" />
+              <img src={webformatURL} className={s["galleryItemImg"]} alt="" />
             </a>
           </li>
         );

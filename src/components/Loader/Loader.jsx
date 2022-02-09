@@ -4,12 +4,12 @@ import { Oval } from 'react-loader-spinner';
 const Loader = () => {
   return (
     <div
-    //   style={{
-    //     width: '100vw',
-    //     height: '100vh',
-    //     display: 'fixed',
-    //     backgroundColor: 'rgba(0,0,0,0.5)',
-    //   }}
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'fixed',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+      }}
     >
          <Oval
             ariaLabel="loading-indicator"
