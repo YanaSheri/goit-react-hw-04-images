@@ -2,13 +2,23 @@
 import { Component } from "react";
 
 class Searchbar extends Component {
+    state = {
+        inputValue: "",
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
+        const inputValue = this.state.inputValue;
+        if (!inputValue) {
+            return
+        }
+        this.props.changeInput(inputValue);
     }
 
-    onChange() {
-        
+    onChange = (e) => {
+        const inputValue = (e.currentTarget.value).trim().toLowerCase();
+        console.log(inputValue);
+        this.setState({ inputValue: inputValue })
     }
 
     render() {
@@ -30,8 +40,6 @@ class Searchbar extends Component {
         </header>
         );
     }
-    
-    
 }
  
 export default Searchbar;

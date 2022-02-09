@@ -1,11 +1,70 @@
 import { Component } from "react";
 import Modal from "./Modal/Modal";
 import Searchbar from "./Searchbar/Searchbar";
+import getImages from '../MainFetch/MainFetch';
+import Button from "./Button/Button";
+import ImageGallery from "./ImageGallery/ImageGallery";
+import Loader from "./Loader/Loader";
+
+const Status = {
+  IDLE: 'idle',
+  PENDING: 'pending',
+  RESOLVED: 'resolved',
+  REJECTED: 'rejected',
+}
+
 class App extends Component {
 
   state = {
+    keyWord: "city",
     showModal: false,
- }
+    hits: [],
+    page: 1,
+    error: null,
+    status: Status.IDLE,
+    largeImageURL: "",
+  }
+
+  componentDidMount() {
+    getImages(this.state.keyWord, this.state.page).then(data =>
+      this.setState({ hits: [...data.hits] })
+    );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.keyWord !== this.state.keyWord ||
+      prevState.page !== this.state.page
+    ) {
+      this.setState({ status: Status.PENDING });
+      getImages(this.state.keyWord, this.state.page)
+        .then(data => {
+          if (!data.hits.length) {
+            this.setState({ status: Status.REJECTED });
+            return;
+          }
+          this.setState(prev => ({
+            hits:
+              this.state.page > 1 ? [...prev.hits, ...data.hits] : data.hits,
+            status: Status.RESOLVED,
+          }));
+        })
+
+        .catch(error => this.setState({ error, status: Status.REJECTED }));
+    }
+  }
+  
+  changeInput = (inputValue) => {
+    this.setState({keyWord: inputValue})
+  }
+
+  clickBtnLoadMore = () => {
+    // getFetch(this.state.newImput, this.state.page).then(data =>
+    this.setState(prev => ({
+      page: prev.page + 1,
+      status: Status.RESOLVED,
+    }));
+  };
 
   toggleModal = () => {
     this.setState(({showModal}) => ({
@@ -13,13 +72,32 @@ class App extends Component {
     }))
   }
 
+  modalOpen = url => {
+    this.setState({ largeImageURL: url });
+    this.toggleModal();
+  };
+
+
   render() {
-    const { showModal } = this.state;
-    return <div>
-      <Searchbar />
-      <button onClick={this.toggleModal}>Modal</button>
-      { showModal  && <Modal/>}
-    </div>;
+    const { hits, newImput, status, showModal, largeImageURL } = this.state;
+    return ( <>
+      <Searchbar changeInput={ this.changeInput }/>
+      {status === 'idle' ? <div>Введите запрос ... </div> : null}
+      {status === 'rejected' ? <div> Нет ответа по запросу</div> : null}
+      {status === 'pending' && <Loader />}
+
+      <>
+        <ImageGallery images={hits} modalOpen={this.modalOpen} />
+        <Button clickBtnLoadMore={this.clickBtnLoadMore} />
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <a onClick={this.toggleModal}>
+              <img src={largeImageURL} alt="" />
+            </a>
+          </Modal>
+        )}
+      </>
+    </>)
   }
 }
  
