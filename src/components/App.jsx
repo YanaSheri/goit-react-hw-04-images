@@ -59,7 +59,6 @@ class App extends Component {
   }
 
   clickBtnLoadMore = () => {
-    // getFetch(this.state.newImput, this.state.page).then(data =>
     this.setState(prev => ({
       page: prev.page + 1,
       status: Status.RESOLVED,
