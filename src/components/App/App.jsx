@@ -49,7 +49,7 @@ const App = () => {
       })
     }
 
-    // setStatus(Status.PENDING);
+    setStatus(Status.PENDING);
     
   }, [keyWord, page]);
 
