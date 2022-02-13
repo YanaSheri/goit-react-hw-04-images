@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import Searchbar from "../Searchbar/Searchbar";
-import getImages from '../../MainFetch/MainFetch';
+import getImages from '../../mainFetch/mainFetch';
 import Button from "../Button/Button";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
